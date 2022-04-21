@@ -6,10 +6,15 @@ import { Container, Typography } from '@mui/material';
 const fetchSuperHeroes = () => axios.get('http://localhost:8000/superheroes');
 
 export default function RQSuperHeroesPage() {
-  const { isLoading, data, isError, error } = useQuery(
+  const { isLoading, data, isError, error, isFetching } = useQuery(
     'super-heroes',
-    fetchSuperHeroes
+    fetchSuperHeroes,
+    {
+      cacheTime: 5000 // set cache time to 5 seconds
+    }
   );
+
+  console.log({ isLoading, isFetching });
 
   if (isLoading) {
     return (
