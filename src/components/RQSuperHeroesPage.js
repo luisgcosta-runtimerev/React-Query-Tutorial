@@ -6,7 +6,10 @@ import { Container, Typography } from '@mui/material';
 const fetchSuperHeroes = () => axios.get('http://localhost:8000/superheroes');
 
 export default function RQSuperHeroesPage() {
-  const { isLoading, data } = useQuery('super-heroes', fetchSuperHeroes);
+  const { isLoading, data, isError, error } = useQuery(
+    'super-heroes',
+    fetchSuperHeroes
+  );
 
   if (isLoading) {
     return (
@@ -15,6 +18,14 @@ export default function RQSuperHeroesPage() {
       </Container>
     );
   }
+  if (isError) {
+    return (
+      <Container>
+        <Typography>{error.message}</Typography>
+      </Container>
+    );
+  }
+
   return (
     <Container>
       {data?.data.map((hero) => (
