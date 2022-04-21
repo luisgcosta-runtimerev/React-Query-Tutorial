@@ -10,7 +10,8 @@ export default function RQSuperHeroesPage() {
     'super-heroes',
     fetchSuperHeroes,
     {
-      cacheTime: 5000 // set cache time to 5 seconds
+      cacheTime: 50000, // set cache time to 50 seconds
+      staleTime: 30000 // set stale time to 30 seconds
     }
   );
 
