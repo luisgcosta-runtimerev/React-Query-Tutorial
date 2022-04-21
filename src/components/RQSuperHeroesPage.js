@@ -12,8 +12,10 @@ export default function RQSuperHeroesPage() {
     {
       // cacheTime: 50000, // set cache time to 50 seconds
       // staleTime: 30000, // set stale time to 30 seconds
-      refetchOnMount: true, // only fecth data if the data is stale ** if it is set to 'always', data is always fetched
-      refetchOnWindowFocus: true // refectch data when tab loses focus and gain focus again - only fecth data if the data is stale ** if it is set to 'always', data is always fetched
+      // refetchOnMount: true, // only fecth data if the data is stale ** if it is set to 'always', data is always fetched
+      // refetchOnWindowFocus: true, // refectch data when tab loses focus and gain focus again - only fecth data if the data is stale ** if it is set to 'always', data is always fetched
+      refetchInterval: 2000, // automatically refetch data after 2 seconds - it's paused if window isn't focus
+      refetchIntervalInBackground: true // refetch if tab isn't focus
     }
   );
 
