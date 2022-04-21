@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function RQSuperHeroesPage() {
-  return (
-    <div>RQSuperHeroes.page</div>
-  )
+  return <div>RQSuperHeroes.page</div>;
 }
