@@ -1,6 +1,11 @@
 import React from 'react';
-import { Container, Typography } from '@mui/material';
+import { Button, Container, Typography } from '@mui/material';
 import { useSuperHeroesData } from '../hooks/useSuperHeroesData';
+
+const reactQueryConfig = {
+  refetchOnMount: true,
+  enabled: false
+};
 
 export default function RQSuperHeroesPage() {
   const onSuccess = (data) => {
@@ -13,7 +18,7 @@ export default function RQSuperHeroesPage() {
 
   // eslint-disable-next-line no-unused-vars
   const { isLoading, data, isError, error, isFetching, refetch } =
-    useSuperHeroesData(onSuccess, onError);
+    useSuperHeroesData(onSuccess, onError, reactQueryConfig);
 
   console.log({ isLoading, isFetching });
 
@@ -34,7 +39,7 @@ export default function RQSuperHeroesPage() {
 
   return (
     <Container>
-      {/* <Button onClick={refetch}>Fecth Heroes</Button> */}
+      <Button onClick={refetch}>Fecth Heroes</Button>
       {/* {data?.data.map((hero) => (
         <Typography key={hero.name}>{hero.name}</Typography>
       ))} */}
