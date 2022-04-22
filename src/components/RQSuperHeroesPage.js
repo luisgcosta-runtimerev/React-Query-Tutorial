@@ -9,7 +9,7 @@ export default function RQSuperHeroesPage() {
   const [refetchInt, setRefetchInt] = useState(4000);
 
   const onSuccess = (data) => {
-    if (data.data.length === 4) {
+    if (data.length === 4) {
       setRefetchInt(0);
     }
     console.log('success', data);
@@ -32,7 +32,17 @@ export default function RQSuperHeroesPage() {
       // refetchIntervalInBackground: true, // refetch if tab isn't focus
       // enabled: false, // data is not fetched without refetch call
       onSuccess, // side effect when data is fetched
-      onError // side effect when data isn't fetched
+      onError, // side effect when data isn't fetched
+      // eslint-disable-next-line no-shadow
+      /* select: (data) => {
+        const superHeroNames = data.data.map((hero) => hero.name);
+        return superHeroNames;
+      } */
+      // eslint-disable-next-line no-shadow
+      select: (data) => {
+        const superHeroNames = data.data.filter((hero) => hero.id % 2 === 0);
+        return superHeroNames;
+      }
     }
   );
 
@@ -56,8 +66,11 @@ export default function RQSuperHeroesPage() {
   return (
     <Container>
       {/* <Button onClick={refetch}>Fecth Heroes</Button> */}
-      {data?.data.map((hero) => (
+      {/* {data?.data.map((hero) => (
         <Typography key={hero.name}>{hero.name}</Typography>
+      ))} */}
+      {data.map((heroName) => (
+        <Typography key={heroName.id}> {heroName.name}</Typography>
       ))}
     </Container>
   );
