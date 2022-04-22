@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { useSuperHeroesData } from '../hooks/useSuperHeroesData';
 
 export default function RQSuperHeroesPage() {
@@ -35,12 +36,14 @@ export default function RQSuperHeroesPage() {
   return (
     <Container>
       {/* <Button onClick={refetch}>Fecth Heroes</Button> */}
-      {/* {data?.data.map((hero) => (
-        <Typography key={hero.name}>{hero.name}</Typography>
-      ))} */}
-      {data.map((heroName) => (
-        <Typography key={heroName.id}> {heroName.name}</Typography>
+      {data?.data.map((hero) => (
+        <Typography key={hero.id}>
+          <Link to={`/rq-super-heroes/${hero.id}`}> {hero.name}</Link>
+        </Typography>
       ))}
+      {/* {data.map((heroName) => (
+        <Typography key={heroName.id}> {heroName.name}</Typography>
+      ))} */}
     </Container>
   );
 }

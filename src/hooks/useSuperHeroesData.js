@@ -15,15 +15,15 @@ export const useSuperHeroesData = (onSuccess, onError, config) =>
     // enabled: false, // data is not fetched without refetch call
     onSuccess, // side effect when data is fetched
     onError, // side effect when data isn't fetched
-    config,
+    config
     // eslint-disable-next-line no-shadow
     /* select: (data) => {
         const superHeroNames = data.data.map((hero) => hero.name);
         return superHeroNames;
       } */
     // eslint-disable-next-line no-shadow
-    select: (data) => {
+    /* select: (data) => {
       const superHeroNames = data.data.filter((hero) => hero.id % 2 === 0);
       return superHeroNames;
-    }
+    } */
   });
