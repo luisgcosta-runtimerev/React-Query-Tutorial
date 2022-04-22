@@ -43,7 +43,7 @@ export default function RQSuperHeroesPage() {
       {/* {data?.data.map((hero) => (
         <Typography key={hero.name}>{hero.name}</Typography>
       ))} */}
-      {data.map((heroName) => (
+      {data?.data.map((heroName) => (
         <Typography key={heroName.id}> {heroName.name}</Typography>
       ))}
     </Container>
