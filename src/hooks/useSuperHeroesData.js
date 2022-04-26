@@ -1,7 +1,10 @@
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import axios from 'axios';
 
 const fetchSuperHeroes = () => axios.get('http://localhost:8000/superheroes');
+
+const addSuperHero = (hero) =>
+  axios.post('http://localhost:8000/superheroes', hero);
 
 // eslint-disable-next-line import/prefer-default-export
 export const useSuperHeroesData = (onSuccess, onError, config) =>
@@ -27,3 +30,5 @@ export const useSuperHeroesData = (onSuccess, onError, config) =>
       return superHeroNames;
     } */
   });
+
+export const useAddSuperHeroData = () => useMutation(addSuperHero);

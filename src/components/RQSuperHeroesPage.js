@@ -1,9 +1,15 @@
-import React from 'react';
-import { Container, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Button, Container, Typography, Input, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useSuperHeroesData } from '../hooks/useSuperHeroesData';
+import {
+  useSuperHeroesData,
+  useAddSuperHeroData
+} from '../hooks/useSuperHeroesData';
 
 export default function RQSuperHeroesPage() {
+  const [name, setName] = useState('');
+  const [alterEgo, setAlterEgo] = useState('');
+
   const onSuccess = (data) => {
     console.log('success', data);
   };
@@ -16,34 +22,55 @@ export default function RQSuperHeroesPage() {
   const { isLoading, data, isError, error, isFetching, refetch } =
     useSuperHeroesData(onSuccess, onError);
 
-  console.log({ isLoading, isFetching });
+  const {
+    mutate: addHero,
+    isLoading: addHeroLoading,
+    isError: addHeroisError,
+    error: addHeroError
+  } = useAddSuperHeroData();
 
-  if (isLoading || isFetching) {
+  const handleAddHeroClick = () => {
+    console.log({ name, alterEgo });
+    const hero = { name, alterEgo };
+    addHero(hero);
+  };
+
+  if (isLoading || isFetching || addHeroLoading) {
     return (
       <Container>
         <Typography>Loading...</Typography>
       </Container>
     );
   }
-  if (isError) {
+  if (isError || addHeroisError) {
     return (
       <Container>
-        <Typography>{error.message}</Typography>
+        <Typography>{error.message || addHeroError.message}</Typography>
       </Container>
     );
   }
 
   return (
     <Container>
-      {/* <Button onClick={refetch}>Fecth Heroes</Button> */}
+      <Box display="flex" flexDirection="column" padding={2}>
+        <Input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          type="text"
+          value={alterEgo}
+          onChange={(e) => setAlterEgo(e.target.value)}
+        />
+        <Button onClick={handleAddHeroClick}>Add Hero</Button>
+      </Box>
+      <Button onClick={refetch}>Fecth Heroes</Button>
       {data?.data.map((hero) => (
         <Typography key={hero.id}>
           <Link to={`/rq-super-heroes/${hero.id}`}> {hero.name}</Link>
         </Typography>
       ))}
-      {/* {data.map((heroName) => (
-        <Typography key={heroName.id}> {heroName.name}</Typography>
-      ))} */}
     </Container>
   );
 }
