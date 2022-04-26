@@ -4,7 +4,7 @@ import axios from 'axios';
 const fetchSuperHeroes = () => axios.get('http://localhost:8000/superheroes');
 
 const addSuperHero = (hero) =>
-  axios.post('http://localhost:8000/superheroes', hero);
+  axios.post('http://localhost:9000/superheroes', hero);
 
 // eslint-disable-next-line import/prefer-default-export
 export const useSuperHeroesData = (onSuccess, onError, config) =>
@@ -34,12 +34,33 @@ export const useSuperHeroesData = (onSuccess, onError, config) =>
 export const useAddSuperHeroData = () => {
   const queryClient = useQueryClient();
   return useMutation(addSuperHero, {
-    onSuccess: (data) => {
-      // queryClient.invalidateQueries('super-heroes');
+    // onSuccess: (data) => {
+    //   // queryClient.invalidateQueries('super-heroes');
+    //   queryClient.setQueryData('super-heroes', (oldQueryData) => ({
+    //     ...oldQueryData,
+    //     data: [...oldQueryData.data, data.data]
+    //   }));
+    // }
+    onMutate: async (newHero) => {
+      await queryClient.cancelQueries('super-heroes');
+      const previousHeroData = queryClient.getQueryData('super-heroes');
       queryClient.setQueryData('super-heroes', (oldQueryData) => ({
         ...oldQueryData,
-        data: [...oldQueryData.data, data.data]
+        data: [
+          ...oldQueryData.data,
+          // eslint-disable-next-line no-unsafe-optional-chaining
+          { id: oldQueryData?.data?.length + 1, ...newHero }
+        ]
       }));
+      return {
+        previousHeroData
+      };
+    },
+    onError: (_error, _hero, context) => {
+      queryClient.setQueryData('super-heroes', context.previousHeroData);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries('super-heroes');
     }
   });
 };

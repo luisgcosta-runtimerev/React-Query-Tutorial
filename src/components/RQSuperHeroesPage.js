@@ -45,7 +45,7 @@ export default function RQSuperHeroesPage() {
   if (isError || addHeroisError) {
     return (
       <Container>
-        <Typography>{error.message || addHeroError.message}</Typography>
+        <Typography>{error?.message || addHeroError?.message}</Typography>
       </Container>
     );
   }
