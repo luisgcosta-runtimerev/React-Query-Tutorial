@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { Button, Container, Typography, Input, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -30,7 +31,6 @@ export default function RQSuperHeroesPage() {
   } = useAddSuperHeroData();
 
   const handleAddHeroClick = () => {
-    console.log({ name, alterEgo });
     const hero = { name, alterEgo };
     addHero(hero);
   };
