@@ -29,6 +29,16 @@
       "name": "Iron Man",
       "alterEgo": "Tony Stark",
       "id": 6
+    },
+    {
+      "name": "Captain America",
+      "alterEgo": "Steve Rogers",
+      "id": 7
+    },
+    {
+      "name": "Thor",
+      "alterEgo": "Donald Blake",
+      "id": 8
     }
   ],
   "friends": [
