@@ -56,11 +56,13 @@ export default function RQSuperHeroesPage() {
         <Input
           type="text"
           value={name}
+          placeholder="Hero Name"
           onChange={(e) => setName(e.target.value)}
         />
         <Input
           type="text"
           value={alterEgo}
+          placeholder="Hero Alter Ego"
           onChange={(e) => setAlterEgo(e.target.value)}
         />
         <Button onClick={handleAddHeroClick}>Add Hero</Button>
